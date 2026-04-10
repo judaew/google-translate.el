@@ -1,4 +1,4 @@
-;;; google-translate-core.el --- google-translate core script.
+;;; google-translate-core.el --- google-translate core script. -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012 Oleksandr Manzyuk <manzyuk@gmail.com>
 

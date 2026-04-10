@@ -1,4 +1,4 @@
-;;; google-translate.el --- Emacs interface to Google Translate
+;;; google-translate.el --- Emacs interface to Google Translate -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012 Oleksandr Manzyuk <manzyuk@gmail.com>
 

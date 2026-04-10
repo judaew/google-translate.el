@@ -1,4 +1,4 @@
-;;; google-translate-default-ui.el --- default UI for Google Translate
+;;; google-translate-default-ui.el --- default UI for Google Translate -*- lexical-binding: t; -*-
 ;;; package
 
 ;; Copyright (C) 2012 Oleksandr Manzyuk <manzyuk@gmail.com>
