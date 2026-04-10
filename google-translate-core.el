@@ -89,8 +89,8 @@
 
 (defvar google-translate-host-language
   (if current-iso639-language
-			(symbol-name current-iso639-language)
-		"en")
+      (symbol-name current-iso639-language)
+    "en")
   "Host language to translate.")
 
 (defvar google-translate-punctuation-re "[,、]"
@@ -103,42 +103,42 @@
   "Split TEXT to less than MAXLEN at applicable point for translating."
   (let (result)
     (if (or (null maxlen) (<= maxlen 0))
-	      (push text result)
+	(push text result)
       ;; split long text?
       (with-temp-buffer
-	      (save-excursion (insert text))
-	      ;; strategy to split at applicable point
-	      ;; 1) fill-region remaining text by maxlen
-	      ;; 2) find end of sentence, end of punctuation, word boundary
-	      ;; 3) consume from remaining text between start and (2)
-	      ;; 4) repeat
-	      (let ((fill-column (* maxlen 3))
-	            (sentence-end-double-space nil)
-	            (pos (point-min)))
-	        (while (< pos (point-max))
-	          (save-restriction
-	            (narrow-to-region pos (point-max))
-	            (fill-region pos (point-max))
-	            (let ((limit (+ pos maxlen)))
-		            (if (>= limit (point-max))
-		                (setq limit (point-max))
-		              (goto-char limit)
-		              ;; try to split at end of sentence
-		              (if (> (backward-sentence) pos)
-		                  (setq limit (point))
-		                ;; try to split at end of punctuation
-		                (goto-char limit)
-		                (if (re-search-backward google-translate-punctuation-re
-					                                  pos t)
-			                  (setq limit (1+ (point))) ; include punctuation
-		                  (goto-char limit)
-		                  ;; try to split at word boundary
-		                  (forward-word-strictly -1)
-		                  (when (> (point) pos)
-			                  (setq limit (point))))))
-		            (push (buffer-substring-no-properties pos limit) result)
-		            (goto-char limit)
-		            (setq pos limit)))))))
+	(save-excursion (insert text))
+	;; strategy to split at applicable point
+	;; 1) fill-region remaining text by maxlen
+	;; 2) find end of sentence, end of punctuation, word boundary
+	;; 3) consume from remaining text between start and (2)
+	;; 4) repeat
+	(let ((fill-column (* maxlen 3))
+	      (sentence-end-double-space nil)
+	      (pos (point-min)))
+	  (while (< pos (point-max))
+	    (save-restriction
+	      (narrow-to-region pos (point-max))
+	      (fill-region pos (point-max))
+	      (let ((limit (+ pos maxlen)))
+		(if (>= limit (point-max))
+		    (setq limit (point-max))
+		  (goto-char limit)
+		  ;; try to split at end of sentence
+		  (if (> (backward-sentence) pos)
+		      (setq limit (point))
+		    ;; try to split at end of punctuation
+		    (goto-char limit)
+		    (if (re-search-backward google-translate-punctuation-re
+					    pos t)
+			(setq limit (1+ (point))) ; include punctuation
+		      (goto-char limit)
+		      ;; try to split at word boundary
+		      (forward-word-strictly -1)
+		      (when (> (point) pos)
+			(setq limit (point))))))
+		(push (buffer-substring-no-properties pos limit) result)
+		(goto-char limit)
+		(setq pos limit)))))))
     (reverse result)))
 
 (defun google-translate--format-query-string (query-params)
@@ -182,14 +182,14 @@ QUERY-PARAMS must be an alist of field-value pairs."
   "Split TEXT with `google-translate--split-text', then format
 listen url for TEXT and TARGET-LANGUAGE."
   (let* ((texts (google-translate--split-text
-		             text google-translate-listen-maxlen))
-	       (total (number-to-string (length texts)))
-	       (idx 0))
+		 text google-translate-listen-maxlen))
+	 (total (number-to-string (length texts)))
+	 (idx 0))
     (mapcar (lambda (x)
-	            (prog1 (google-translate-format-listen-url x language total
-							                                           (number-to-string idx))
-		            (setq idx (1+ idx))))
-	          texts)))
+	      (prog1 (google-translate-format-listen-url x language total
+							 (number-to-string idx))
+		(setq idx (1+ idx))))
+	    texts)))
 
 (defun google-translate--http-response-body (url &optional for-test-purposes)
   "Retrieve URL and return the response body as a string."
@@ -318,7 +318,7 @@ each item is a 2-element vector whose zeroth element is the name of a part of
 speech and whose first element is a vector of definitions for that part of
 speech."
   (if (> (length json) 12)
-    (aref json 12)))
+      (aref json 12)))
 
 (defun google-translate-json-suggestion (json)
   "Retrieve from JSON (which returns by the

@@ -168,13 +168,13 @@ REVERSE-P is used to reverse the default direction of translation: if
 it's non-NIL, the value of `google-translate-default-source-language'
 becomes the default target language and vice versa."
   (let* ((default-source-language
-           (if reverse-p
-               google-translate-default-target-language
-             google-translate-default-source-language))
+          (if reverse-p
+              google-translate-default-target-language
+            google-translate-default-source-language))
          (default-target-language
-           (if reverse-p
-               google-translate-default-source-language
-             google-translate-default-target-language))
+          (if reverse-p
+              google-translate-default-source-language
+            google-translate-default-target-language))
          (source-language
           (if (and default-source-language
                    (not override-p))
@@ -262,9 +262,9 @@ in the reverse direction."
      source-language target-language
      (cond ((string-equal major-mode "pdf-view-mode") (car (pdf-view-active-region-text)))
            ((use-region-p) (buffer-substring-no-properties (region-beginning) (region-end)))
-       (t (or (and (setq bounds (bounds-of-thing-at-point 'word))
-                (buffer-substring-no-properties (car bounds) (cdr bounds)))
-           (error "No word at point.")))))))
+           (t (or (and (setq bounds (bounds-of-thing-at-point 'word))
+                       (buffer-substring-no-properties (car bounds) (cdr bounds)))
+                  (error "No word at point.")))))))
 
 ;;;###autoload
 (defun google-translate-at-point (&optional override-p)
