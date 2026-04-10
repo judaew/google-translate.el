@@ -932,9 +932,9 @@ The input is guaranteed to be non-null."
              "Translate to: "
            prompt)))
     (cl-flet ((read-language ()
-                             (google-translate-completing-read
-                              prompt
-                              (google-translate-supported-languages))))
+                (google-translate-completing-read
+                 prompt
+                 (google-translate-supported-languages))))
       (let ((target-language (read-language)))
         (while (string-equal target-language "")
           (setq target-language (read-language)))
